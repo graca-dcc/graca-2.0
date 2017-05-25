@@ -14,6 +14,7 @@ def webhook():
             data = json.loads(request.data.decode())
             text = data['entry'][0]['messaging'][0]['message']['text']
             sender = data['entry'][0]['messaging'][0]['sender']['id']
+            global test
             if text == '0':
                 test = 'Hi World'
             elif text == '1':
