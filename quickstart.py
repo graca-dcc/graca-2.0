@@ -25,14 +25,14 @@ def get_credentials():
     scope = ['https://spreadsheets.google.com/feeds']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('cred.json', scope)
     return credentials
-
+"""
 def main():
-    """Shows basic usage of the Sheets API.
+    Shows basic usage of the Sheets API.
 
     Creates a Sheets API service object and prints the names and majors of
     students in a sample spreadsheet:
     https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-    """
+    
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
@@ -58,8 +58,8 @@ def main():
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
             print('%s, %s' % (row[0], row[1]))
+"""
 
-
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()
 
