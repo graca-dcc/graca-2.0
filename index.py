@@ -6,7 +6,7 @@ from flask import Flask, request
 
 token = os.environ.get('FB_ACCESS_TOKEN')
 app = Flask(__name__)
-global test = 'Hello World!'
+test = 'Hello World!'
 @app.route('/', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'POST':
