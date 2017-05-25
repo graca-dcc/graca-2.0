@@ -18,7 +18,7 @@ def webhook():
             if text == '0':
                 test = 'Hi World'
             elif text == '1':
-                test = 'Hello World'
+                test = 'got here'
             payload = {'recipient': {'id': sender}, 'message': {'text': test}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
         except Exception as e:
