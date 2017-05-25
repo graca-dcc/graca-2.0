@@ -1,3 +1,7 @@
 Flask
 requests
 gunicorn
+oauth2client
+PyOpenSSL
+gspread
+
