@@ -16,7 +16,7 @@ def substitution(sentence):
     return sentence
 
 
-# TODO maybe a handmade dict with pronouns and articles would be more efficient
+# TODO maybe a handmade dict with prepositions and articles would be more efficient
 def remove_small_words(sentence):
     remover = re.compile(r'\W*\b\w{1,2}\b'} 
     return sentence
