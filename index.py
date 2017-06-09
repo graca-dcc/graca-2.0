@@ -4,6 +4,18 @@ import traceback
 import json
 from flask import Flask, request
 
+variaveis = dict()
+
+def get_nome (name, data):
+    name = data['entry'][0]['messaging'][0]['sender']['name']
+    msg = msg.replace("getNome",name)
+    return msg
+
+def substituir_variavel(msg):
+    for v in variaveis:
+        msg = msg.replace(v,variaveis[v])
+    return msg
+
 token = os.environ.get('FB_ACCESS_TOKEN')
 app = Flask(__name__)
 test = 'Hello World!'

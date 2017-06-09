@@ -1,5 +1,14 @@
+# -*- coding: utf-8 -*-
+
 import re
 import string
+re.sub( r'\bpara que\b', 'paraque', str )
+
+from unicodedata import normalize
+
+def remover_acentos(txt, codif='utf-8'):
+    return normalize('NFKD', txt.decode(codif)).encode('ASCII','ignore')
+
 
 def remove_punctuation(sentence):
     punctuations = set(string.punctuation)
