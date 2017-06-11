@@ -5,3 +5,4 @@ oauth2client
 PyOpenSSL
 gspread
 google-api-python-client
+nltk
