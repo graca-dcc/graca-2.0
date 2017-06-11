@@ -29,7 +29,7 @@ def webhook():
             text = data['entry'][0]['messaging'][0]['message']['text']
             sender = data['entry'][0]['messaging'][0]['sender']['id']
             ans = get_answer(classifier,text)
-            payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
+            payload = {'recipient': {'id': sender}, 'message': {'text': 'hello!'}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
         except Exception as e:
             print(traceback.format_exc())
