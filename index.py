@@ -5,9 +5,10 @@ import json
 from flask import Flask, request
 import cPickle as pickle
 from classifier import get_answer
+from classifier import create_classifier
 
 variaveis = dict()
-classifier = pickle.load('test_classifier.pickle','rb')
+classifier = create_classifier()
 def get_nome (name, data):
     name = data['entry'][0]['messaging'][0]['sender']['name']
     msg = msg.replace("getNome",name)
