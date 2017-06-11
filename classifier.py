@@ -6,28 +6,55 @@ from reader import read
 from preprocess import preprocess
 from preprocess import get_sub_dict
 
-def create_classifier(documents):
-    random.shuffle(documents)
-    all_words = FreqDist(w.lower() for w in documents)
-    word_features = all_words.keys()[:50]
-    train_set = apply_features(document_features, documents[100:])
-    test_set = apply_features(document_features, documents[:100])
-    classifier = nb.train(train_set) 
-    # TODO save classifier ins a pkl file to be loaded
-    pass
-
-
-def extract_feature(sentence,word_features):
-    # TODO define feature extractor
-    bow = set(sentence)
-    features = {}
-    for word in word_features:
-        features[word] = (word in bow)
-    return features
-
+classifier = None
+word_frequency = FreqDist()
 offset = 1000
 answers = dict()
 faq = []
+
+def create_classifier():
+    sub_dict = dict()
+    sub_dict = get_sub_dict(sub_dict,'siglas')
+    sub_dict = get_sub_dict(sub_dict,'academico')
+    sub_dict = get_sub_dict(sub_dict,'abreviacoes')
+    sub_dict = get_sub_dict(sub_dict,'conjuntos')
+    read_faq(sub_dict)
+    global faq
+    global classifier
+    random.shuffle(faq)
+    get_word_frequency()
+    train_set = apply_features(extract_feature, faq)
+    classifier = nb.train(train_set) 
+    # TODO save classifier ins a pkl file to be loaded
+    return classifier
+
+
+def get_answer(classifier,sentence):
+    #global classifier
+    ans = classifier.classify(extract_feature(sentence))
+    global answers
+    print answers[ans]
+
+
+def get_word_frequency():
+    global faq
+    global word_frequency
+    for t in faq: 
+        question = t[0]
+        words = set(question.split(' '))
+        for word in words:
+            word_frequency[word.lower()] += 1
+    return word_frequency
+
+def extract_feature(sentence):
+    # TODO define feature extractor
+    global word_frequency
+    bow = set(sentence.lower().split(' '))
+    features = {}
+    for word in word_frequency.keys():
+        features[word] = (word in bow)
+    return features
+
 def get_data(sub_dict,spreadsheetId):
     global offset
     global answers
