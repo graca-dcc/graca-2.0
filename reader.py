@@ -3,11 +3,13 @@ import json
 import os
 from apiclient import discovery
 from oauth2client.service_account import ServiceAccountCredentials
+from generate_json import generate_json
 
 def get_credentials():
     scope = ['https://spreadsheets.google.com/feeds']
     #credentials = ServiceAccountCredentials.from_json_keyfile_name('../cred.json', scope)
-    cred_json = json.loads(os.environ.get('CRED_JSON'))
+    cred_json = json.loads(generate_json())
+    print cred_json
     credentials = ServiceAccountCredentials.from_json(cred_json, scope)
     return credentials
 
