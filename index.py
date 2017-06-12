@@ -28,6 +28,7 @@ def webhook():
             data = json.loads(request.data.decode())
             text = data['entry'][0]['messaging'][0]['message']['text']
             sender = data['entry'][0]['messaging'][0]['sender']['id']
+            global classifier
             ans = get_answer(classifier,text)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
