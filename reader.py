@@ -9,9 +9,6 @@ def get_credentials():
     scope = ['https://spreadsheets.google.com/feeds']
     #credentials = ServiceAccountCredentials.from_json_keyfile_name('../cred.json', scope)
     cred_json = generate_json()
-    print cred_json
-    #credentials = ServiceAccountCredentials.from_json(cred_json, scope)
-    #credentials = ServiceAccountCredentials.create_scoped(ServiceAccountCredentials,scope)
     credentials = ServiceAccountCredentials._from_parsed_json_keyfile(cred_json,scope)
     return credentials
 
