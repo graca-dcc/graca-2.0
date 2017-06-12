@@ -36,7 +36,7 @@ def get_answer(classifier,sentence):
     ans = classifier.classify(extract_feature(sentence))
     global answers
     #print answers[ans]
-    return ans
+    return answers[ans]
 
 
 def get_word_frequency():
