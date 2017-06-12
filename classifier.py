@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import random
 from nltk import FreqDist
 from nltk import NaiveBayesClassifier as nb
