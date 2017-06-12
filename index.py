@@ -8,7 +8,7 @@ from classifier import get_answer
 from classifier import create_classifier
 
 variaveis = dict()
-classifier = create_classifier()
+classifier = pickle.load(open('test_classifier.pickle','rb'))
 def get_nome (name, data):
     name = data['entry'][0]['messaging'][0]['sender']['name']
     msg = msg.replace("getNome",name)
