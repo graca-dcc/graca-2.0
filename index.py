@@ -62,10 +62,10 @@ def webhook():
             text = data['entry'][0]['messaging'][0]['message']['text']
             sender = data['entry'][0]['messaging'][0]['sender']['id']
             #global classifier
-            classifier = app.config['classifier']
-            answers = app.config['answers']
-            sub_dict = app.config['sub_dict']
-            variables = app.config['variables']
+            classifier = app.classifier
+            answers = app.answers
+            sub_dict = app.sub_dict
+            variables = app.variables
             ans = get_answer(classifier,answers,sub_dict,text)
             ans = substitute_variables(variables,ans)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
@@ -80,8 +80,8 @@ def webhook():
 
 if __name__ == '__main__':
     classifier, answers, sub_dict = create_classifier()
-    app.config['classifier'] = classifier
-    app.config['answers'] = answers
-    app.config['sub_dict'] = sub_dict
-    app.config['variables'] = load_variables()
+    setattr(app, 'classifier', classifier)
+    setattr(app, 'answers', answers)
+    setattr(app, 'sub_dict', sub_dict)
+    setattr(app, 'variables', load_variables())
     app.run(debug=True)
