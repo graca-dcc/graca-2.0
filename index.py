@@ -25,6 +25,11 @@ app = Flask(__name__)
 #classifier = joblib.load('cls.pkl')
 #sub_dict = joblib.load('sd.pkl')
 
+classifier = None
+answers = None
+sub_dict = None
+variables = None
+
 def load_variables():
     variables = dict()
     data = read(VARIABLES_SHEET, 'colegiado')
@@ -70,6 +75,10 @@ def webhook():
     return 'Nothing'
 
 if __name__ == '__main__':
+    global variables
+    global classifier
+    global answers
+    global sub_dict
     variables = load_variables()
     classifier, answers, sub_dict = create_classifier()
     app.run(debug=True)
