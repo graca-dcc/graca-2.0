@@ -4,8 +4,8 @@ import os
 import requests
 import traceback
 import json
+import re
 from flask import Flask, request
-import cPickle as pickle
 from classifier import get_answer
 from classifier import create_classifier
 from reader import read
@@ -28,6 +28,9 @@ def load_variables():
     return variables
 
 
+variables = load_variables()
+
+
 def get_nome (name, data):
     name = data['entry'][0]['messaging'][0]['sender']['name']
     msg = msg.replace("getNome",name)
@@ -36,7 +39,7 @@ def get_nome (name, data):
 
 def substitute_variables(msg):
     for v in variables:
-        msg = msg.replace(v,variables[v])
+        msg = re.sub(r'\b'+v+r'\b',variables[v],msg)
     return msg
 
 
