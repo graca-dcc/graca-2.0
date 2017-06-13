@@ -79,5 +79,16 @@ def get_data(spreadsheetId):
 def read_faq():
     global answers
     global faq
+    # colegiado
     get_data('1fqDkqnZ1Zws5yrAa7cZryJKZO2hQDrqU2kW64SA8zAo')
+    # apresentacao
+    get_data('1IxnEQxrArzEJvoCzdISERzkCEkzM6heVO58FN3F7c9Y')
+    # biblioteca
+    get_data('1U8t-blzZHM9m1K9H6O1eLYEv_EhuwVUGmrkzcU7STDQ')
+    # informacoes_gerais
+    get_data('1VXLnbmBo-OBtbFu9JfBSC0v8ufUBTT3sIwpXj5mz8Ec')
+    # creditos
+    get_data('1FwuOvzxT9pcvuYHIYoYQbByTwNwZWI0NW_WV8_YvPP8')
+    # sobre_cursos
+    get_data('1z_U7mDvru1dOkhjo62SInosYMzSpXPXBCUVobB7jgFk')
     return (faq, answers)
