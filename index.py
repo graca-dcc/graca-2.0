@@ -44,6 +44,16 @@ def load_variables():
     return variables
 
 
+def create():
+    cls, ans, sd = create_classifier()
+    global classifier
+    classifier = cls
+    global answers
+    answers = ans
+    global sub_dict
+    sub_dict = sd
+    global variables
+    variables = load_variables()
 
 
 def get_nome (name, data):
@@ -78,14 +88,10 @@ def webhook():
             print(traceback.format_exc())
     elif request.method == 'GET':
         if request.args.get('hub.verify_token') == os.environ.get('FB_VERIFY_TOKEN'):
+            create()
             return request.args.get('hub.challenge')
         return "Wrong Verify Token"
     return 'Nothing'
 
 if __name__ == '__main__':
-    cls, ans, sd = create_classifier()
-    globals()['classifier'] = cls
-    globals()['answers'] = ans
-    globals()['sub_dict'] = sd
-    globals()['variables'] = load_variables()
     app.run(debug=True)
