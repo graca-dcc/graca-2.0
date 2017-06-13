@@ -20,10 +20,10 @@ app = Flask(__name__)
 #classifier = pickle.load(open('classifier.pickle','rb'))
 #answers = pickle.load(open('answers.pickle','rb'))
 #sub_dict = pickle.load(open('sub_dict.pickle','rb'))
-from sklearn.externals import joblib
-answers = joblib.load('ans.pkl')
-classifier = joblib.load('cls.pkl')
-sub_dict = joblib.load('sd.pkl')
+#from sklearn.externals import joblib
+#answers = joblib.load('ans.pkl')
+#classifier = joblib.load('cls.pkl')
+#sub_dict = joblib.load('sd.pkl')
 
 def load_variables():
     variables = dict()
@@ -35,7 +35,6 @@ def load_variables():
     return variables
 
 
-variables = load_variables()
 
 
 def get_nome (name, data):
@@ -71,4 +70,6 @@ def webhook():
     return 'Nothing'
 
 if __name__ == '__main__':
+    variables = load_variables()
+    classifier, answers, sub_dict = create_classifier()
     app.run(debug=True)
