@@ -56,13 +56,13 @@ def extract_feature(sentence):
     global word_frequency
     bow = set(sentence.lower().split(' '))
     features = {}
-    #for word in word_frequency.keys():
-    #    features[word] = (word in bow)
-    for freq_word in word_frequency.keys():
-        for word in bow:
-            if edit_distance(freq_word,word) <= 3:
-                features[freq_word] = True
-                break
+    for word in word_frequency.keys():
+        features[word] = (word in bow)
+    #for freq_word in word_frequency.keys():
+    #    for word in bow:
+    #        if edit_distance(freq_word,word) <= 3:
+    #            features[freq_word] = True
+    #            break
     #import pdb; pdb.set_trace()
     return features
 
