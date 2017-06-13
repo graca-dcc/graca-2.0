@@ -79,6 +79,5 @@ def get_data(spreadsheetId):
 def read_faq():
     global answers
     global faq
-    global sub_dict
-    get_data(sub_dict,'1fqDkqnZ1Zws5yrAa7cZryJKZO2hQDrqU2kW64SA8zAo')
+    get_data('1fqDkqnZ1Zws5yrAa7cZryJKZO2hQDrqU2kW64SA8zAo')
     return (faq, answers)
