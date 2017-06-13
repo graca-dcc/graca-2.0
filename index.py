@@ -84,8 +84,8 @@ def webhook():
 
 if __name__ == '__main__':
     cls, ans, sd = create_classifier()
-    classifier = cls
-    answers = ans
-    sub_dict = sd
-    variables = load_variables()
+    globals()['classifier'] = cls
+    globals()['answers'] = ans
+    globals()['sub_dict'] = sd
+    globals()['variables'] = load_variables()
     app.run(debug=True)
