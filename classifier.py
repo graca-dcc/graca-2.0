@@ -13,14 +13,15 @@ word_frequency = FreqDist()
 offset = 1000
 answers = dict()
 faq = []
+sub_dict = dict()
 
 def create_classifier():
-    sub_dict = dict()
+    global sub_dict
     sub_dict = get_sub_dict(sub_dict,'siglas')
     sub_dict = get_sub_dict(sub_dict,'academico')
     sub_dict = get_sub_dict(sub_dict,'abreviacoes')
     sub_dict = get_sub_dict(sub_dict,'conjuntos')
-    read_faq(sub_dict)
+    read_faq()
     global faq
     global classifier
     random.shuffle(faq)
@@ -33,6 +34,8 @@ def create_classifier():
 
 def get_answer(classifier,sentence):
     #global classifier
+    global sub_dict
+    sentence = preprocess(sentence,sub_dict)
     ans = classifier.classify(extract_feature(sentence))
     global answers
     #print answers[ans]
@@ -58,10 +61,11 @@ def extract_feature(sentence):
         features[word] = (word in bow)
     return features
 
-def get_data(sub_dict,spreadsheetId):
+def get_data(spreadsheetId):
     global offset
     global answers
     global faq
+    global sub_dict
     q = read(spreadsheetId,'pergunta')
     a = read(spreadsheetId,'resposta')
     for row in a:
@@ -72,8 +76,9 @@ def get_data(sub_dict,spreadsheetId):
     offset += 1000
 
 
-def read_faq(sub_dict):
+def read_faq():
     global answers
     global faq
+    global sub_dict
     get_data(sub_dict,'1fqDkqnZ1Zws5yrAa7cZryJKZO2hQDrqU2kW64SA8zAo')
     return (faq, answers)
