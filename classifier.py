@@ -38,14 +38,13 @@ class Classifier():
     def extract_feature(self, sentence):
         bow = set(sentence.lower().split(' '))
         features = {}
-        for word in self.word_frequency.keys():
-            features[word] = (word in bow)
-        #for freq_word in word_frequency.keys():
-        #    for word in bow:
-        #        if edit_distance(freq_word,word) <= 3:
-        #            features[freq_word] = True
-        #            break
-        #import pdb; pdb.set_trace()
+        #for word in self.word_frequency.keys():
+        #    features[word] = (word in bow)
+        for freq_word in self.word_frequency.keys():
+            for word in bow:
+                if edit_distance(freq_word,word) <= 3:
+                    features[freq_word] = True
+                    break
         return features
 
     def read_faq(self):
@@ -74,8 +73,12 @@ class Classifier():
 
     def get_answer(self, sentence):
         sentence = preprocess(sentence,self.sub_dict)
+        p = self.classifier.prob_classify(self.extract_feature(sentence))
+        if p.prob(p.max()) <= 0.7:
+            return 'Me desculpe, não consegui entender :(', p.prob(p.max())
         ans = self.classifier.classify(self.extract_feature(sentence))
-        return self.answers[ans]
+        ans = p.max()
+        return self.answers[ans], p.prob(p.max())
 
     def save_classifier(self):
         fc = open('classifier.pickle', 'wb')

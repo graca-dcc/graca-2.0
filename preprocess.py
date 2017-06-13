@@ -2,7 +2,7 @@
 
 import re
 import string
-#from unicodedata import normalize
+from unicodedata import normalize
 import unicodedata
 from reader import read
 
@@ -19,10 +19,13 @@ def preprocess(sentence, sub_dict):
 
 
 def remove_accents(sentence, codif='utf-8'):
-    #return normalize('NFKD', sentence.decode(codif)).encode('ASCII','ignore')
-    nfkd = unicodedata.normalize('NFKD', sentence)
-    sentence = u"".join([c for c in nfkd if not unicodedata.combining(c)])
-    return re.sub('[^a-zA-Z0-9 \\\]', '', sentence)
+    try:
+        nfkd = unicodedata.normalize('NFKD', sentence)
+        sentence = u"".join([c for c in nfkd if not unicodedata.combining(c)])
+        return re.sub('[^a-zA-Z0-9 \\\]', '', sentence)
+    except TypeError:
+        return normalize('NFKD', sentence.decode(codif)).encode('ASCII','ignore')
+    return sentence
 
 def remove_punctuation(sentence):
     punctuations = set(string.punctuation)
