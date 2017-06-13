@@ -6,6 +6,7 @@ import os
 from apiclient import discovery
 from oauth2client.service_account import ServiceAccountCredentials
 from generate_json import generate_json
+import time
 
 def get_credentials():
     scope = ['https://spreadsheets.google.com/feeds']
@@ -22,6 +23,7 @@ def read (spreadsheetId, tab):
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
+    time.sleep(5)
     rangeName = tab
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()

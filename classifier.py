@@ -8,7 +8,6 @@ from nltk.metrics.distance import edit_distance
 from reader import read
 from preprocess import preprocess
 from preprocess import get_sub_dict
-import time
 
 classifier = None
 word_frequency = FreqDist()
@@ -28,9 +27,7 @@ def create_classifier():
     global classifier
     random.shuffle(faq)
     get_word_frequency()
-    time.sleep(1)
     train_set = apply_features(extract_feature, faq)
-    time.sleep(1)
     classifier = nb.train(train_set) 
     return classifier
 
@@ -93,7 +90,6 @@ def read_faq():
     get_data('1IxnEQxrArzEJvoCzdISERzkCEkzM6heVO58FN3F7c9Y')
     # biblioteca
     get_data('1U8t-blzZHM9m1K9H6O1eLYEv_EhuwVUGmrkzcU7STDQ')
-    time.sleep(5)
     # informacoes_gerais
     get_data('1VXLnbmBo-OBtbFu9JfBSC0v8ufUBTT3sIwpXj5mz8Ec')
     # creditos
