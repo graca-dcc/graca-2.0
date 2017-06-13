@@ -15,11 +15,10 @@ VARIABLES_SHEET = '176CdCN3k_pRsNYAjw_Tp_l0U9eV-P3kspxLl1gPCmEo'
 
 token = os.environ.get('FB_ACCESS_TOKEN')
 app = Flask(__name__)
-classifier, answers, sub_dict = create_classifier()
-setattr(app, 'classifier', classifier)
-setattr(app, 'answers', answers)
-setattr(app, 'sub_dict', sub_dict)
-setattr(app, 'variables', load_variables())
+#setattr(app, 'classifier', classifier)
+#setattr(app, 'answers', answers)
+#setattr(app, 'sub_dict', sub_dict)
+#setattr(app, 'variables', load_variables())
 #classifier = create_classifier()
 #import cPickle as pickle
 #classifier = pickle.load(open('classifier.pickle','rb'))
@@ -30,10 +29,10 @@ setattr(app, 'variables', load_variables())
 #classifier = joblib.load('cls.pkl')
 #sub_dict = joblib.load('sd.pkl')
 
-#classifier = None
-#answers = None
-#sub_dict = None
-#variables = None
+classifier = None
+answers = None
+sub_dict = None
+variables = None
 
 def load_variables():
     variables = dict()
@@ -67,10 +66,10 @@ def webhook():
             text = data['entry'][0]['messaging'][0]['message']['text']
             sender = data['entry'][0]['messaging'][0]['sender']['id']
             #global classifier
-            classifier = app.classifier
-            answers = app.answers
-            sub_dict = app.sub_dict
-            variables = app.variables
+            #classifier = app.classifier
+            #answers = app.answers
+            #sub_dict = app.sub_dict
+            #variables = app.variables
             ans = get_answer(classifier,answers,sub_dict,text)
             ans = substitute_variables(variables,ans)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
@@ -84,4 +83,9 @@ def webhook():
     return 'Nothing'
 
 if __name__ == '__main__':
+    cls, ans, sd = create_classifier()
+    classifier = cls
+    answers = ans
+    sub_dict = sd
+    variables = load_variables()
     app.run(debug=True)
