@@ -10,95 +10,74 @@ from preprocess import preprocess
 from preprocess import get_sub_dict
 import pickle
 
-classifier = None
-word_frequency = FreqDist()
-offset = 1000
-answers = dict()
-faq = []
-sub_dict = dict()
+class Classifier():
 
-def create_classifier():
-    global sub_dict
-    sub_dict = get_sub_dict(sub_dict,'siglas')
-    sub_dict = get_sub_dict(sub_dict,'academico')
-    sub_dict = get_sub_dict(sub_dict,'abreviacoes')
-    sub_dict = get_sub_dict(sub_dict,'conjuntos')
-    read_faq()
-    global faq
-    global classifier
-    global answers
-    random.shuffle(faq)
-    get_word_frequency()
-    train_set = apply_features(extract_feature, faq)
-    classifier = nb.train(train_set)
-    #pickle.dump(classifier,open('classifier.pickle','wb'))
-    #pickle.dump(answers,open('answers.pickle','wb'))
-    #pickle.dump(sub_dict,open('sub_dict.pickle','wb'))
-    return classifier, answers, sub_dict
+    def __init__(self):
+        self.word_frequency = FreqDist()
+        self.offset = 1000
+        self.faq = []
+        self.sub_dict = dict()
+        self.answers = dict()
+        self.sub_dict = get_sub_dict(self.sub_dict, 'siglas')
+        self.sub_dict = get_sub_dict(self.sub_dict, 'academico')
+        self.sub_dict = get_sub_dict(self.sub_dict, 'abreviacoes')
+        self.sub_dict = get_sub_dict(self.sub_dict, 'conjuntos')
+        self.read_faq()
+        random.shuffle(self.faq)
+        self.get_word_frequency()
+        train_set = apply_features(self.extract_feature, self.faq)
+        self.classifier = nb.train(train_set)
 
+    def get_word_frequency(self):
+        for t in self.faq: 
+            question = t[0]
+            words = set(question.split(' '))
+            for word in words:
+                self.word_frequency[word.lower()] += 1
 
-def get_answer(classifier,answers,sub_dict,sentence):
-    #global classifier
-    #global sub_dict
-    sentence = preprocess(sentence,sub_dict)
-    ans = classifier.classify(extract_feature(sentence))
-    #global answers
-    #print answers[ans]
-    return answers[ans]
+    def extract_feature(self, sentence):
+        bow = set(sentence.lower().split(' '))
+        features = {}
+        for word in self.word_frequency.keys():
+            features[word] = (word in bow)
+        #for freq_word in word_frequency.keys():
+        #    for word in bow:
+        #        if edit_distance(freq_word,word) <= 3:
+        #            features[freq_word] = True
+        #            break
+        #import pdb; pdb.set_trace()
+        return features
 
+    def read_faq(self):
+        # colegiado
+        self.get_data('1fqDkqnZ1Zws5yrAa7cZryJKZO2hQDrqU2kW64SA8zAo')
+        # apresentacao
+        self.get_data('1IxnEQxrArzEJvoCzdISERzkCEkzM6heVO58FN3F7c9Y')
+        # biblioteca
+        self.get_data('1U8t-blzZHM9m1K9H6O1eLYEv_EhuwVUGmrkzcU7STDQ')
+        # informacoes_gerais
+        self.get_data('1VXLnbmBo-OBtbFu9JfBSC0v8ufUBTT3sIwpXj5mz8Ec')
+        # creditos
+        self.get_data('1FwuOvzxT9pcvuYHIYoYQbByTwNwZWI0NW_WV8_YvPP8')
+        # sobre_cursos
+        self.get_data('1z_U7mDvru1dOkhjo62SInosYMzSpXPXBCUVobB7jgFk')
 
-def get_word_frequency():
-    global faq
-    global word_frequency
-    for t in faq: 
-        question = t[0]
-        words = set(question.split(' '))
-        for word in words:
-            word_frequency[word.lower()] += 1
-    return word_frequency
+    def get_data(self, spreadsheetId):
+        q = read(spreadsheetId,'pergunta')
+        a = read(spreadsheetId,'resposta')
+        for row in a:
+            self.answers[int(row[0])+self.offset] = row[1]    
+        for row in q:
+            t = (preprocess(row[0],self.sub_dict),int(row[1])+self.offset)
+            self.faq += [t]
+        self.offset += 1000
 
-def extract_feature(sentence):
-    global word_frequency
-    bow = set(sentence.lower().split(' '))
-    features = {}
-    for word in word_frequency.keys():
-        features[word] = (word in bow)
-    #for freq_word in word_frequency.keys():
-    #    for word in bow:
-    #        if edit_distance(freq_word,word) <= 3:
-    #            features[freq_word] = True
-    #            break
-    #import pdb; pdb.set_trace()
-    return features
+    def get_answer(self, sentence):
+        sentence = preprocess(sentence,self.sub_dict)
+        ans = self.classifier.classify(self.extract_feature(sentence))
+        return self.answers[ans]
 
-def get_data(spreadsheetId):
-    global offset
-    global answers
-    global faq
-    global sub_dict
-    q = read(spreadsheetId,'pergunta')
-    a = read(spreadsheetId,'resposta')
-    for row in a:
-        answers[int(row[0])+offset] = row[1]    
-    for row in q:
-        t = (preprocess(row[0],sub_dict),int(row[1])+offset)
-        faq += [t]
-    offset += 1000
-
-
-def read_faq():
-    global answers
-    global faq
-    # colegiado
-    get_data('1fqDkqnZ1Zws5yrAa7cZryJKZO2hQDrqU2kW64SA8zAo')
-    # apresentacao
-    get_data('1IxnEQxrArzEJvoCzdISERzkCEkzM6heVO58FN3F7c9Y')
-    # biblioteca
-    get_data('1U8t-blzZHM9m1K9H6O1eLYEv_EhuwVUGmrkzcU7STDQ')
-    # informacoes_gerais
-    get_data('1VXLnbmBo-OBtbFu9JfBSC0v8ufUBTT3sIwpXj5mz8Ec')
-    # creditos
-    get_data('1FwuOvzxT9pcvuYHIYoYQbByTwNwZWI0NW_WV8_YvPP8')
-    # sobre_cursos
-    get_data('1z_U7mDvru1dOkhjo62SInosYMzSpXPXBCUVobB7jgFk')
-    return (faq, answers)
+    def save_classifier(self):
+        fc = open('classifier.pickle', 'wb')
+        pickle.dump(self, fc)
+        fc.close() 

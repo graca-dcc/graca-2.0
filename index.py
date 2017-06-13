@@ -6,33 +6,17 @@ import traceback
 import json
 import re
 from flask import Flask, request, g
-from classifier import get_answer
-from classifier import create_classifier
+#from classifier import get_answer
+#from classifier import create_classifier
 from reader import read
+import pickle
 
 VARIABLES_SHEET = '176CdCN3k_pRsNYAjw_Tp_l0U9eV-P3kspxLl1gPCmEo'
 
 
 token = os.environ.get('FB_ACCESS_TOKEN')
 app = Flask(__name__)
-#setattr(app, 'classifier', classifier)
-#setattr(app, 'answers', answers)
-#setattr(app, 'sub_dict', sub_dict)
-#setattr(app, 'variables', load_variables())
-#classifier = create_classifier()
-#import cPickle as pickle
-#classifier = pickle.load(open('classifier.pickle','rb'))
-#answers = pickle.load(open('answers.pickle','rb'))
-#sub_dict = pickle.load(open('sub_dict.pickle','rb'))
-#from sklearn.externals import joblib
-#answers = joblib.load('ans.pkl')
-#classifier = joblib.load('cls.pkl')
-#sub_dict = joblib.load('sd.pkl')
-
-#classifier = None
-#answers = None
-#sub_dict = None
-#variables = None
+classifier = pickle.load(open('classifier.pickle','rb'))
 
 def load_variables():
     variables = dict()
@@ -43,17 +27,7 @@ def load_variables():
         variables['var_'+k] = value
     return variables
 
-
-def create():
-    cls, ans, sd = create_classifier()
-    #global classifier
-    g.classifier = cls
-    #global answers
-    g.answers = ans
-    #global sub_dict
-    g.sub_dict = sd
-    #global variables
-    g.variables = load_variables()
+variables = load_variables()
 
 
 def get_nome (name, data):
@@ -62,7 +36,8 @@ def get_nome (name, data):
     return msg
 
 
-def substitute_variables(variables, msg):
+def substitute_variables(msg):
+    global variables
     for v in variables:
         msg = re.sub(r'\b'+v+r'\b',variables[v],msg)
     return msg
@@ -75,24 +50,19 @@ def webhook():
             data = json.loads(request.data.decode())
             text = data['entry'][0]['messaging'][0]['message']['text']
             sender = data['entry'][0]['messaging'][0]['sender']['id']
-            #global classifier
-            #classifier = app.classifier
-            #answers = app.answers
-            #sub_dict = app.sub_dict
-            #variables = app.variables
-            ans = get_answer(g.classifier,g.answers,g.sub_dict,text)
-            ans = substitute_variables(g.variables,ans)
+            global classifier
+            global variables
+            ans = classifier.get_answer(text)
+            ans = substitute_variables(ans)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
         except Exception as e:
             print(traceback.format_exc())
     elif request.method == 'GET':
         if request.args.get('hub.verify_token') == os.environ.get('FB_VERIFY_TOKEN'):
-            create()
             return request.args.get('hub.challenge')
         return "Wrong Verify Token"
     return 'Nothing'
 
 if __name__ == '__main__':
-    create()
     app.run(debug=True)
