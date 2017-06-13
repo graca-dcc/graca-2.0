@@ -16,10 +16,14 @@ VARIABLES_SHEET = '176CdCN3k_pRsNYAjw_Tp_l0U9eV-P3kspxLl1gPCmEo'
 token = os.environ.get('FB_ACCESS_TOKEN')
 app = Flask(__name__)
 #classifier = create_classifier()
-import cPickle as pickle
-classifier = pickle.load(open('classifier.pickle','rb'))
-answers = pickle.load(open('answers.pickle','rb'))
-sub_dict = pickle.load(open('sub_dict.pickle','rb'))
+#import cPickle as pickle
+#classifier = pickle.load(open('classifier.pickle','rb'))
+#answers = pickle.load(open('answers.pickle','rb'))
+#sub_dict = pickle.load(open('sub_dict.pickle','rb'))
+from sklearn.externals import joblib
+answers = joblib.load('ans.pkl')
+classifier = joblib.load('cls.pkl')
+sub_dict = joblib.load('sd.pkl')
 
 def load_variables():
     variables = dict()

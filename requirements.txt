@@ -6,3 +6,6 @@ PyOpenSSL
 gspread
 google-api-python-client
 nltk
+numpy
+sklearn
+scipy
