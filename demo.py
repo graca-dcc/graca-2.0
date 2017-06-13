@@ -1,31 +1,32 @@
 # -*- coding: utf-8 -*-
 
-#from preprocess import preprocess
-
-#msg = 'vc é muito linda. te conheço do DA de si, não é?'
-
-#print (preprocess(msg))
-
-import pdb
-from nltk import FreqDist
-from preprocess import get_sub_dict
-from classifier import read_faq
-from classifier import get_word_frequency
-"""
-subdict = dict()
-subdict = get_sub_dict(subdict,'siglas')
-subdict = get_sub_dict(subdict,'academico')
-subdict = get_sub_dict(subdict,'abreviacoes')
-subdict = get_sub_dict(subdict,'conjuntos')
-q, a = read_faq(subdict)
-wf = get_word_frequency()
-pdb.set_trace()
-"""
 from classifier import create_classifier
 from classifier import get_answer
+from reader import read
+import re
+
+VARIABLES_SHEET = '176CdCN3k_pRsNYAjw_Tp_l0U9eV-P3kspxLl1gPCmEo'
+
+def load_variables():
+    variables = dict()
+    data = read(VARIABLES_SHEET, 'colegiado')
+    for row in data:
+        k = row[0]
+        value = row[1]
+        variables['var_'+k] = value
+    return variables
+
 classifier = create_classifier()
-import cPickle as pickle
-pickle.dump(classifier, open('test_classifier.pickle', 'wb'))
-cl = pickle.load(open('test_classifier.pickle','rb'))
-pergunta = 'qual o telefone do colegiado de ciencia da computação?'
-get_answer(cl,pergunta)
+variables = load_variables()
+
+
+def substitute_variables(msg):
+    for v in variables:
+        msg = re.sub(r'\b'+v+r'\b',variables[v], msg)
+    return msg
+
+classifier = create_classifier()
+#pergunta = 'qual o telefone do colegiado de ciencia da computação?'
+pergunta = 'bom dia graça, preciso do email do colegiado de matematica computacional'
+ans = get_answer(classifier,pergunta)
+print substitute_variables(ans)

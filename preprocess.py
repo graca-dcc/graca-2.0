@@ -2,7 +2,8 @@
 
 import re
 import string
-from unicodedata import normalize
+#from unicodedata import normalize
+import unicodedata
 from reader import read
 
 SUBSTITUTION_SHEET = '1b2uzFDAL8QkidaYKiblU9QcYvovuV4mdPj38GhXLJwk'
@@ -17,9 +18,11 @@ def preprocess(sentence, sub_dict):
     return sentence
 
 
-def remove_accents(txt, codif='utf-8'):
-    return normalize('NFKD', txt.decode(codif)).encode('ASCII','ignore')
-
+def remove_accents(sentence, codif='utf-8'):
+    #return normalize('NFKD', sentence.decode(codif)).encode('ASCII','ignore')
+    nfkd = unicodedata.normalize('NFKD', sentence)
+    sentence = u"".join([c for c in nfkd if not unicodedata.combining(c)])
+    return re.sub('[^a-zA-Z0-9 \\\]', '', sentence)
 
 def remove_punctuation(sentence):
     punctuations = set(string.punctuation)
