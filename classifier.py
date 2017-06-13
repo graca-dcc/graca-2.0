@@ -8,6 +8,7 @@ from nltk.metrics.distance import edit_distance
 from reader import read
 from preprocess import preprocess
 from preprocess import get_sub_dict
+import time
 
 classifier = None
 word_frequency = FreqDist()
@@ -28,8 +29,8 @@ def create_classifier():
     random.shuffle(faq)
     get_word_frequency()
     train_set = apply_features(extract_feature, faq)
+    time.sleep(1)
     classifier = nb.train(train_set) 
-    # TODO save classifier ins a pkl file to be loaded
     return classifier
 
 
@@ -57,9 +58,14 @@ def extract_feature(sentence):
     global word_frequency
     bow = set(sentence.lower().split(' '))
     features = {}
+    #for word in word_frequency.keys():
+    #    features[word] = (word in bow)
     for freq_word in word_frequency.keys():
         for word in bow:
-            features[freq_word] = (edit_distance(freq_word,word) <= 3)
+            if edit_distance(freq_word,word) <= 3:
+                features[freq_word] = True
+                break
+    #import pdb; pdb.set_trace()
     return features
 
 def get_data(spreadsheetId):
@@ -88,6 +94,7 @@ def read_faq():
     get_data('1U8t-blzZHM9m1K9H6O1eLYEv_EhuwVUGmrkzcU7STDQ')
     # informacoes_gerais
     get_data('1VXLnbmBo-OBtbFu9JfBSC0v8ufUBTT3sIwpXj5mz8Ec')
+    time.sleep(5)
     # creditos
     get_data('1FwuOvzxT9pcvuYHIYoYQbByTwNwZWI0NW_WV8_YvPP8')
     # sobre_cursos
