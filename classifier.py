@@ -4,6 +4,7 @@ import random
 from nltk import FreqDist
 from nltk import NaiveBayesClassifier as nb
 from nltk.classify import apply_features
+from nltk.metrics.distance import edit_distance
 from reader import read
 from preprocess import preprocess
 from preprocess import get_sub_dict
@@ -53,12 +54,12 @@ def get_word_frequency():
     return word_frequency
 
 def extract_feature(sentence):
-    # TODO define feature extractor
     global word_frequency
     bow = set(sentence.lower().split(' '))
     features = {}
-    for word in word_frequency.keys():
-        features[word] = (word in bow)
+    for freq_word in word_frequency.keys():
+        for word in bow:
+            features[freq_word] = (edit_distance(freq_word,word) <= 3)
     return features
 
 def get_data(spreadsheetId):
