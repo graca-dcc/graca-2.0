@@ -1,0 +1,98 @@
+(dp1
+I5001
+V1 crédito corresponde a 15h da carga horáia. Você poderá ter acesso à carga horária a ser cursada por você em MinhaUFMG>UFMG>Sistemas>Siga>Minhas Matrículas>Meu extrato de integralização curricular.
+p2
+sI5002
+VA partir de um certo período, você pode optar por uma das formações complementares do currículo do curso. Por exemplo, se você tem interesse em finanças, você pode optar pela formação complementar nessa área em específico.\u005cnAssim, você deve fazer 24 créditos correspondentes às disciplinas listadas nessa formação escolhida.
+p3
+sI5003
+VSe você está no fim do curso e não escolheu nenhuma formação complementar, você ainda pode desde que você tenha tempo hábil para cursos todos os créditos. Nesse caso, você deve fazer um plano de quando pretende cursar quais disciplinas e submeter para análise da coordenadora no colegiado do curso.
+p4
+sI4001
+VHá no Instituto um estabelecimento dedicado à impressão, cópia e encadernação de arquivos e trabalhos acadêmicos. Ao lado da sala do Diretório Acadêmico, a empresa LCM realiza as atividades acima. Para imprimir, basta levar o arquivo em uma mídia móvel, ou envie para lcmcopias@gmail.com
+p5
+sI4002
+VLogo no segundo andar do ICEx há uma cantina. Nela são servidos lanches e almoços, das 7h às 21h30 de segunda à sexta-feira durante o período normal de aulas.
+p6
+sI4003
+VNo Guia Acadêmico da UFMG você pode encontrar todas as informações necessárias para entender a estrutura da universidade, seus direitos e deveres. Dê uma atenção especial aos itens que constam na seção "Vida Acadêmica" do Guia.\u005cnhttps://www.ufmg.br/online/arquivos/anexos/guia-academico.pdf
+p7
+sI6001
+VO Curso de Bacharelado em Ciência da Computação teve seu início em julho de 1978 e o seu reconhecimento pelo Conselho Federal de Educação em 1983. É considerado um Bacharelado de alto nível no contexto nacional.\u005cnO curso tem o claro objetivo de formar profissionais voltados para o desenvolvimento de sistemas de computação, notadamente sistemas de programação ("software").
+p8
+sI3001
+VAo todo são três as instalações dedicadas a realizar o armazenamento dos títulos do ICEx.\u005cnQuímica - prédio de Química\u005cnFísica - sala 3065 do ICEx\u005cnMatemática, Estatística e Ciência da Computação - sala 4222 do ICEx.
+p9
+sI3002
+VA Biblioteca Central está localizada ao lado da praça de serviços da universidade.
+p10
+sI3003
+VPara solicitar o empréstimo de um livro, basta o estudante apresentar sua carteirinha. Para acessar a disponibilidade de livros, teses, dissertações e monografias, bem como suas respectivas localizações, os alunos podem acessar o catálogo online da universidade:\u005cnhttps://catalogobiblioteca.ufmg.br/pergamum/biblioteca/index.php
+p11
+sI3004
+VA carteirinha da biblioteca pode ser confeccionada na Biblioteca Central, ao lado da Praça de Serviços, mediante o pagamento de uma taxa de 1 real.
+p12
+sI2001
+VOlá, getNome! :D Posso esclarecer duvidas sobre a matrícula, trancamento de matrícula, reaproveitamento de créditos, colegiado, professores e estágio, diretório acadêmico, xerox, cantina, biblioteca, salas e horários.
+p13
+sI1001
+VO colegiado é um elo entre os alunos, professores e a universidade, de modo a orientar e coordenar as atividades realizadas pelos alunos dentro do curso.\u005cnÉ responsável pelos processos de matrícula, reopção, dispensa e inclusão de atividades acadêmicas regulares, transferência, obtenção de novo título ou outras formas de ingresso, aproveitamento de créditos e trancamentos parciais e totais de matrícula.
+p14
+sI1002
+VO colegiado fica na var_salacol
+p15
+sI1003
+VO coordenador é responsável por resolver qualquer assunto acadêmico relativo ao curso ou aos alunos de curso.
+p16
+sI1004
+VEnvie um email para o colegiado do seu curso informando sempre seu nome, número de matrícula e assunto. Assim vocês podem agendar um horário.
+p17
+sI1005
+VO colegiado de Matemática funciona de var_horacolmat.
+p18
+sI1006
+VO colegiado de Ciência da Computação funciona de var_horacolcc.
+p19
+sI1007
+VO colegiado de Sistemas de Informação funciona de var_horacolsi.
+p20
+sI1008
+VO colegiado de Matemática Computacional funciona de var_horacolmatcomp.
+p21
+sI1009
+VColegiado Matemática: var_telcolmat var_bot emailcolmat
+p22
+sI1010
+VColegiado Ciência da Computação: var_telcolcc var_emailcolcc
+p23
+sI1011
+VColegiado Sistemas de Informação: var_telcolsi var_emailcolsi
+p24
+sI1012
+VColegiado Matemática Computacional: var_telcolmatcomp var_emailcolmatcomp
+p25
+sI1013
+Vvar_coordcolmat, sala var_salacoordcolmat é responsável pela Coordenação de Matemática.
+p26
+sI1014
+Vvar_coordcolcc, sala var_salacoordcolcc é responsável pela Coordenação de Ciência da Computação.
+p27
+sI1015
+Vvar_coordcolsi, sala var_salacoordcolsi é responsável pela Coordenação de Sistemas de Informação.
+p28
+sI1016
+Vvar_coordcolmatcomp, sala var_salacoordcolmatcomp é responsável pela Coordenação de Matemática Computacional.
+p29
+sI1017
+Vvar_secretcolmat se encontra na secretaria do Colegiado de Matemática.
+p30
+sI1018
+Vvar_secretcolcc se encontra na secretaria do Colegiado de Ciência da Computação.
+p31
+sI1019
+Vvar_secretcolsi se encontra na secretaria do Colegiado de Sistemas de Informação.
+p32
+sI1020
+Vvar_secretcolmatcomp se encontra na secretaria do Colegiado de Matemática Computacional.
+p33
+s.

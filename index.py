@@ -15,7 +15,11 @@ VARIABLES_SHEET = '176CdCN3k_pRsNYAjw_Tp_l0U9eV-P3kspxLl1gPCmEo'
 
 token = os.environ.get('FB_ACCESS_TOKEN')
 app = Flask(__name__)
-classifier = create_classifier()
+#classifier = create_classifier()
+import cPickle as pickle
+classifier = pickle.load(open('classifier.pickle','rb'))
+answers = pickle.load(open('answers.pickle','rb'))
+sub_dict = pickle.load(open('sub_dict.pickle','rb'))
 
 def load_variables():
     variables = dict()
@@ -50,7 +54,7 @@ def webhook():
             text = data['entry'][0]['messaging'][0]['message']['text']
             sender = data['entry'][0]['messaging'][0]['sender']['id']
             global classifier
-            ans = get_answer(classifier,text)
+            ans = get_answer(classifier,answers,sub_dict,text)
             ans = substitute_variables(ans)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)

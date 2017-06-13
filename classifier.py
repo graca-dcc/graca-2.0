@@ -8,6 +8,7 @@ from nltk.metrics.distance import edit_distance
 from reader import read
 from preprocess import preprocess
 from preprocess import get_sub_dict
+import cPickle as pickle
 
 classifier = None
 word_frequency = FreqDist()
@@ -25,19 +26,23 @@ def create_classifier():
     read_faq()
     global faq
     global classifier
+    global answers
     random.shuffle(faq)
     get_word_frequency()
     train_set = apply_features(extract_feature, faq)
-    classifier = nb.train(train_set) 
+    classifier = nb.train(train_set)
+    pickle.dump(classifier,open('classifier.pickle','wb'))
+    pickle.dump(answers,open('answers.pickle','wb'))
+    pickle.dump(sub_dict,open('sub_dict.pickle','wb'))
     return classifier
 
 
-def get_answer(classifier,sentence):
+def get_answer(classifier,answers,sub_dict,sentence):
     #global classifier
-    global sub_dict
+    #global sub_dict
     sentence = preprocess(sentence,sub_dict)
     ans = classifier.classify(extract_feature(sentence))
-    global answers
+    #global answers
     #print answers[ans]
     return answers[ans]
 
