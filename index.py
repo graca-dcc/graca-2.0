@@ -5,7 +5,7 @@ import requests
 import traceback
 import json
 import re
-from flask import Flask, request
+from flask import Flask, request, g
 from classifier import get_answer
 from classifier import create_classifier
 from reader import read
@@ -29,10 +29,10 @@ app = Flask(__name__)
 #classifier = joblib.load('cls.pkl')
 #sub_dict = joblib.load('sd.pkl')
 
-classifier = None
-answers = None
-sub_dict = None
-variables = None
+#classifier = None
+#answers = None
+#sub_dict = None
+#variables = None
 
 def load_variables():
     variables = dict()
@@ -46,14 +46,14 @@ def load_variables():
 
 def create():
     cls, ans, sd = create_classifier()
-    global classifier
-    classifier = cls
-    global answers
-    answers = ans
-    global sub_dict
-    sub_dict = sd
-    global variables
-    variables = load_variables()
+    #global classifier
+    g.classifier = cls
+    #global answers
+    g.answers = ans
+    #global sub_dict
+    g.sub_dict = sd
+    #global variables
+    g.variables = load_variables()
 
 
 def get_nome (name, data):
@@ -80,8 +80,8 @@ def webhook():
             #answers = app.answers
             #sub_dict = app.sub_dict
             #variables = app.variables
-            ans = get_answer(classifier,answers,sub_dict,text)
-            ans = substitute_variables(variables,ans)
+            ans = get_answer(g.classifier,g.answers,g.sub_dict,text)
+            ans = substitute_variables(g.variables,ans)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
         except Exception as e:
@@ -94,4 +94,5 @@ def webhook():
     return 'Nothing'
 
 if __name__ == '__main__':
+    create()
     app.run(debug=True)
