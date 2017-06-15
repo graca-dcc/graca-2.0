@@ -14,7 +14,7 @@ def substitute_variables(msg):
 
 while True:
     pergunta = raw_input('Pergunta: ')
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     ans, prob = cls.get_answer(pergunta)
     print 'Resposta: '+substitute_variables(ans)
     print prob

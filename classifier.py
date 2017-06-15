@@ -3,6 +3,7 @@
 import random
 from nltk import FreqDist
 from nltk import NaiveBayesClassifier as nb
+from nltk import DecisionTreeClassifier as dt
 from nltk.classify import apply_features
 from nltk.metrics.distance import edit_distance
 from reader import read
@@ -27,24 +28,35 @@ class Classifier():
         self.get_word_frequency()
         train_set = apply_features(self.extract_feature, self.faq)
         self.classifier = nb.train(train_set)
-
+ 
     def get_word_frequency(self):
         for t in self.faq: 
             question = t[0]
             words = set(question.split(' '))
+            freq = 1
+            if len(words) <= 2:
+                freq = 10
             for word in words:
-                self.word_frequency[word.lower()] += 1
+                self.word_frequency[word.lower()] += freq
 
     def extract_feature(self, sentence):
         bow = set(sentence.lower().split(' '))
         features = {}
         #for word in self.word_frequency.keys():
         #    features[word] = (word in bow)
+        freq = 1
+        if len(bow) <= 2:
+            freq = 10
         for freq_word in self.word_frequency.keys():
             for word in bow:
-                if edit_distance(freq_word,word) <= 3:
-                    features[freq_word] = True
-                    break
+                if edit_distance(freq_word,word) <= 2:
+                    if freq_word in features:
+                        features[freq_word] += freq
+                        break
+                    else:
+                        features[freq_word] = freq
+                        break
+                    #break
         return features
 
     def read_faq(self):
@@ -74,9 +86,9 @@ class Classifier():
     def get_answer(self, sentence):
         sentence = preprocess(sentence,self.sub_dict)
         p = self.classifier.prob_classify(self.extract_feature(sentence))
-        if p.prob(p.max()) <= 0.7:
-            return 'Me desculpe, não consegui entender :(', p.prob(p.max())
-        ans = self.classifier.classify(self.extract_feature(sentence))
+        #if p.prob(p.max()) <= 0.7:
+        #    return 'Me desculpe, não consegui entender :(', p.prob(p.max())
+        #ans = self.classifier.classify(self.extract_feature(sentence))
         ans = p.max()
         return self.answers[ans], p.prob(p.max())
 
