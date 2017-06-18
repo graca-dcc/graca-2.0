@@ -11,88 +11,96 @@ sVvar_telcolmat
 p5
 V3409-5987
 p6
-sVvar_horacolmat
+sVvar_formcomplcc
 p7
-V15:00 às 21:00
+Vhttp://dcc.ufmg.br/dcc/?q=BCC-formacao-complementar
 p8
-sVvar_salacol
+sVvar_horacolmat
 p9
-Vsala 2005 do ICEx
+V15:00 às 21:00
 p10
-sVvar_emailcolsi
+sVvar_salacol
 p11
-Vcolgradsi@icex.ufmg.br
+Vsala 2005 do ICEx
 p12
-sVvar_salacoordcolcc
+sVvar_emailcolsi
 p13
-V6307
+Vcolgradsi@icex.ufmg.br
 p14
-sVvar_emailcolmat
+sVvar_salacoordcolcc
 p15
-Vcolgradmat@icex.ufmg.br
+V6307
 p16
-sVvar_emailcolmatcomp
+sVvar_emailcolmat
 p17
-Vmatcomp@icex.ufmg.br
+Vcolgradmat@icex.ufmg.br
 p18
-sVvar_telcolmatcomp
+sVvar_emailcolmatcomp
 p19
-V3409-7547
+Vmatcomp@icex.ufmg.br
 p20
-sVvar_telcolcc
+sVvar_telcolmatcomp
 p21
 V3409-7547
 p22
-sVvar_secretcolmat
+sVvar_telcolcc
 p23
-VTúlio Marcos Gonçalves
+V3409-7547
 p24
-sVvar_emailcolcc
+sVvar_formcomplsi
 p25
-Vcolgraddcc@icex.ufmg.br
+Vhttp://dcc.ufmg.br/dcc/?q=BSI-formacao-complementar
 p26
-sVvar_horacolsi
+sVvar_secretcolmat
 p27
-V16:00 às 22:00
+VTúlio Marcos Gonçalves
 p28
-sVvar_secretcolcc
+sVvar_emailcolcc
 p29
-VPatrícia de Cássia Gomes Pimentel
+Vcolgraddcc@icex.ufmg.br
 p30
-sVvar_telcolsi
+sVvar_horacolsi
 p31
-V3409-5380
+V16:00 às 22:00
 p32
-sVvar_salacoordcolsi
+sVvar_secretcolcc
 p33
-V6329
-p34
-sVvar_horacolmatcomp
-p35
-V08:00 às 14:00
-p36
-sVvar_coordcolmat
-p37
-VProf. Seme Gebara Neto
-p38
-sVvar_coordcolmatcomp
-p39
-VProf. Thiago Ferreira de Noronha
-p40
-sVvar_secretcolsi
-p41
-VLydia Helena de Souza
-p42
-sVvar_salacoordcolmatcomp
-p43
-V6316
-p44
-sVvar_coordcolsi
-p45
-VProf. Clodoveu Augusto Davis Junior
-p46
-sVvar_secretcolmatcomp
-p47
 VPatrícia de Cássia Gomes Pimentel
+p34
+sVvar_telcolsi
+p35
+V3409-5380
+p36
+sVvar_salacoordcolsi
+p37
+V6329
+p38
+sVvar_horacolmatcomp
+p39
+V08:00 às 14:00
+p40
+sVvar_coordcolmat
+p41
+VProf. Seme Gebara Neto
+p42
+sVvar_coordcolmatcomp
+p43
+VProf. Thiago Ferreira de Noronha
+p44
+sVvar_secretcolsi
+p45
+VLydia Helena de Souza
+p46
+sVvar_salacoordcolmatcomp
+p47
+V6316
 p48
+sVvar_coordcolsi
+p49
+VProf. Clodoveu Augusto Davis Junior
+p50
+sVvar_secretcolmatcomp
+p51
+VPatrícia de Cássia Gomes Pimentel
+p52
 s.

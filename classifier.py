@@ -23,6 +23,7 @@ class Classifier():
         self.sub_dict = get_sub_dict(self.sub_dict, 'academico')
         self.sub_dict = get_sub_dict(self.sub_dict, 'abreviacoes')
         self.sub_dict = get_sub_dict(self.sub_dict, 'conjuntos')
+        self.sub_dict = get_sub_dict(self.sub_dict, 'sinonimos')
         self.read_faq()
         random.shuffle(self.faq)
         self.get_word_frequency()
@@ -74,6 +75,10 @@ class Classifier():
         self.get_data('1z_U7mDvru1dOkhjo62SInosYMzSpXPXBCUVobB7jgFk')
         # sobre
         self.get_data('1AGkOlKeuGK8BtB92PTOlFYOiIdXvxQ9RRqJcf1_5vHo')
+        # formacao complementar
+        self.get_data('1IA2rFHmD5VESpzzWSG76wwqFvbU8f0IjczPgJumEMjQ')
+        # matricula
+        self.get_data('1T1FfsVpLdBntyAfW_Rv4CNgoD8imDOt52GTg5nsKnSM')
 
     def get_data(self, spreadsheetId):
         q = read(spreadsheetId,'pergunta')
@@ -94,7 +99,7 @@ class Classifier():
         ans = p.max()
         return self.answers[ans], p.prob(p.max())
 
-    def save_classifier(self):
+    def save(self):
         fc = open('classifier.pickle', 'wb')
         pickle.dump(self, fc)
         fc.close() 
