@@ -72,6 +72,8 @@ class Classifier():
         self.get_data('1FwuOvzxT9pcvuYHIYoYQbByTwNwZWI0NW_WV8_YvPP8')
         # sobre_cursos
         self.get_data('1z_U7mDvru1dOkhjo62SInosYMzSpXPXBCUVobB7jgFk')
+        # sobre
+        self.get_data('1AGkOlKeuGK8BtB92PTOlFYOiIdXvxQ9RRqJcf1_5vHo')
 
     def get_data(self, spreadsheetId):
         q = read(spreadsheetId,'pergunta')
