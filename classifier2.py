@@ -42,7 +42,7 @@ class Classifier():
         """
         trial = Pipeline([
             ('vectorizer', CountVectorizer()),
-            ('classifier', RandomForestClassifier(n_estimators=140, max_features=5)),
+            ('classifier', RandomForestClassifier(n_estimators=140, max_features=3)),
         ])
         train_faq = [x[0] for x in self.faq]
         train_class = [x[1] for x in self.faq]
@@ -91,6 +91,6 @@ class Classifier():
         return self.answers[ans[0]], 0
 
     def save(self):
-        fc = open('classifier.pickle', 'wb')
+        fc = open('classifier2.pickle', 'wb')
         pickle.dump(self, fc)
         fc.close() 

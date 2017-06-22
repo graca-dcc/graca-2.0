@@ -1,4 +1,4 @@
-from classifier import Classifier
+from classifier2 import Classifier
 from reader import read
 import re
 import pickle

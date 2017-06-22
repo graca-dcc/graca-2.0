@@ -3,7 +3,7 @@ import pickle
 import re
 
 variables = pickle.load(open('variables.pickle', 'rb'))
-cls = pickle.load(open('classifier.pickle', 'rb'))
+cls = pickle.load(open('classifier2.pickle', 'rb'))
 
 
 def substitute_variables(msg):

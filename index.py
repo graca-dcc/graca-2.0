@@ -14,7 +14,7 @@ VARIABLES_SHEET = '176CdCN3k_pRsNYAjw_Tp_l0U9eV-P3kspxLl1gPCmEo'
 
 token = os.environ.get('FB_ACCESS_TOKEN')
 app = Flask(__name__)
-classifier = pickle.load(open('classifier.pickle','rb'))
+classifier = pickle.load(open('classifier2.pickle','rb'))
 variables = pickle.load(open('variables.pickle','rb'))
 
 def get_nome (msg, data):
