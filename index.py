@@ -6,8 +6,6 @@ import traceback
 import json
 import re
 from flask import Flask, request, g
-#from classifier import get_answer
-#from classifier import create_classifier
 from reader import read
 import pickle
 
@@ -19,7 +17,7 @@ app = Flask(__name__)
 classifier = pickle.load(open('classifier.pickle','rb'))
 variables = pickle.load(open('variables.pickle','rb'))
 
-def get_nome (name, data):
+def get_nome (msg, data):
     name = data['entry'][0]['messaging'][0]['sender']['name']
     msg = msg.replace("getNome",name)
     return msg
@@ -43,6 +41,7 @@ def webhook():
             global variables
             ans, prob = classifier.get_answer(text)
             ans = substitute_variables(ans)
+            ans = get_nome(msg, data)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
         except Exception as e:

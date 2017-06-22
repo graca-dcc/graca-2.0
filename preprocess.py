@@ -5,6 +5,7 @@ import string
 from unicodedata import normalize
 import unicodedata
 from reader import read
+from nltk.corpus import stopwords as sw
 
 SUBSTITUTION_SHEET = '1b2uzFDAL8QkidaYKiblU9QcYvovuV4mdPj38GhXLJwk'
 
@@ -35,7 +36,27 @@ def remove_punctuation(sentence):
 # TODO maybe a handmade dict with prepositions and articles would be more efficient
 def remove_small_words(sentence):
     remover = re.compile(r'\W*\b\w{1,2}\b')
-    sentence = remover.sub('', sentence) 
+    sentence = remover.sub('', sentence)
+    
+    remover = re.compile(r'\bate\b')
+    sentence = remover.sub('', sentence)
+    """
+    remover = re.compile(r'\bpelo\b')
+    sentence = remover.sub('', sentence)
+    remover = re.compile(r'\bpela\b')
+    sentence = remover.sub('', sentence)
+    remover = re.compile(r'\bachar\b')
+    sentence = remover.sub('encontrar', sentence)
+    remover = re.compile(r'\bgostaria\b')
+    sentence = remover.sub('quero', sentence)
+    remover = re.compile(r'\bqueria\b')
+    sentence = remover.sub('quero', sentence)
+    remover = re.compile(r'\explique\b')
+    sentence = remover.sub('explica', sentence)
+    """
+    for w in sw.words('portuguese'):
+        remover = re.compile(r'\b'+w+r'\b')
+        sentence = remover.sub('', sentence)
     return sentence
 
 
