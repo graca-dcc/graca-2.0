@@ -26,7 +26,7 @@ class Classifier():
         self.sub_dict = get_sub_dict(self.sub_dict, 'sinonimos')
         self.read_faq()
         random.shuffle(self.faq)
-        """
+        """        
         test_set = []
         train_set = []
         my_set = set([x[1] for x in self.faq])
@@ -42,7 +42,7 @@ class Classifier():
         """
         trial = Pipeline([
             ('vectorizer', CountVectorizer()),
-            ('classifier', RandomForestClassifier(n_estimators=300, max_features=5)),
+            ('classifier', RandomForestClassifier(n_estimators=140, max_features=5)),
         ])
         train_faq = [x[0] for x in self.faq]
         train_class = [x[1] for x in self.faq]
