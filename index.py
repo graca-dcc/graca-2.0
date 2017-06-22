@@ -41,7 +41,7 @@ def webhook():
             global variables
             ans, prob = classifier.get_answer(text)
             ans = substitute_variables(ans)
-            ans = get_nome(msg, data)
+            ans = get_nome(ans, data)
             payload = {'recipient': {'id': sender}, 'message': {'text': ans}}
             r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
         except Exception as e:
